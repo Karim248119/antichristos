@@ -1,0 +1,40 @@
+.player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#wave {
+  height: 32px;
+  width: 32px;
+}
+
+@for $i from 1 through 9 {
+  #Line_#{$i} {
+    animation: pulse 1s infinite;
+    animation-delay: $i * 0.15s;
+    animation-play-state: running; // default
+  }
+}
+
+.player.paused #wave path {
+  animation-play-state: paused; // ✅ pause when not playing
+}
+
+@keyframes pulse {
+  0% {
+    transform: scaleY(1);
+    transform-origin: 50% 50%;
+  }
+
+  50% {
+    transform: scaleY(0.7);
+    transform-origin: 50% 50%;
+  }
+
+  100% {
+    transform: scaleY(1);
+    transform-origin: 50% 50%;
+  }
+}
