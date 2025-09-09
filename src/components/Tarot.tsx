@@ -3,14 +3,7 @@
 import React, { useState } from "react";
 import CARDS from "../../data";
 import Link from "next/link";
-import {
-  GiExpander,
-  GiSemiClosedEye,
-  GiSheikahEye,
-  GiWarlockEye,
-} from "react-icons/gi";
-import { IoClose } from "react-icons/io5";
-import { CgCloseO } from "react-icons/cg";
+import { GiExpander, GiSheikahEye } from "react-icons/gi";
 
 export default function Tarot() {
   const [rotate, setRotate] = useState(0);
@@ -50,7 +43,7 @@ export default function Tarot() {
                 onClick={() => setSelectedCard(selectedCard === i ? null : i)}
               />
               <div
-                className={`absolute bottom-5 left-0 w-full flex items-center justify-center gap-2 text-white z-20 duration-1000 delay-500 ${
+                className={`absolute bottom-10 left-0 w-full flex items-center justify-center gap-2 text-white z-20 duration-1000 delay-500 ${
                   selectedCard !== i ? "opacity-0" : "opacity-100"
                 }`}
               >
@@ -109,7 +102,7 @@ const Card = ({
       }`}
       style={{
         transform: selected
-          ? `translate(0px, -150px) scale(1.1)` // bring to center
+          ? `translate(0px, -170px) scale(1.1)` // bring to center
           : `translate(${x}px, ${y}px) rotate(${angle}rad)`,
       }}
     >
