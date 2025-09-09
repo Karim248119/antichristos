@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "node scripts/copy-pdf-worker.js"
+    "lint": "eslint"
   },
   "dependencies": {
     "@pdf-viewer/react": "^1.8.4",
