@@ -2,7 +2,7 @@ import React from "react";
 
 export default function SvgMask({ imgurl }: { imgurl?: string }) {
   return (
-    <div className="w-full h-2/3 flex justify-center items-center relative">
+    <div className="w-full h-2/3 flex justify-center items-center relative scale-x-[-1]">
       <svg className="x" viewBox="0 0 1366 768" width="100%">
         <defs>
           <clipPath id="svgPath">

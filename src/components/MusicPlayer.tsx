@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import "./MusicPlayer.scss";
 
 export default function MusicPlayer() {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const togglePlay = () => {
     if (audioRef.current) {

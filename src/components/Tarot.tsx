@@ -4,19 +4,29 @@ import React, { useState } from "react";
 import CARDS from "../../data";
 import Link from "next/link";
 import { GiExpander, GiSheikahEye } from "react-icons/gi";
+import { motion } from "framer-motion";
 
-export default function Tarot() {
+export default function Tarot({
+  selectedCard,
+  setSelectedCard,
+}: {
+  selectedCard: number | null;
+  setSelectedCard: React.Dispatch<React.SetStateAction<number | null>>;
+}) {
   const [rotate, setRotate] = useState(0);
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center relative">
+    <div
+      className={`w-full flex flex-col items-center justify-center relative ${
+        selectedCard && "h-screen"
+      }`}
+    >
       {/* controls only show if no card is selected */}
       {selectedCard === null && (
         <div className="grid grid-cols-2 w-full h-full px-20 mb-10 absolute z-30 top-0 text-white">
           <button
             className="prev"
-            disabled={rotate == -40}
+            disabled={rotate == -30}
             onClick={() => setRotate(rotate - 10)}
           />
           <button
@@ -43,6 +53,7 @@ export default function Tarot() {
                 onClick={() => setSelectedCard(selectedCard === i ? null : i)}
               />
               <div
+                key={i + "buttons"}
                 className={`absolute bottom-10 left-0 w-full flex items-center justify-center gap-2 text-white z-20 duration-1000 delay-500 ${
                   selectedCard !== i ? "opacity-0" : "opacity-100"
                 }`}
@@ -95,19 +106,20 @@ const Card = ({
   const y = -Math.cos(angle) * radius + radius;
 
   return (
-    <div
+    <motion.div
       onClick={onClick}
-      className={`absolute origin-bottom duration-700 z-50 perspective cursor-pointer ${
-        selected ? "" : "hover:mb-28"
-      }`}
-      style={{
-        transform: selected
-          ? `translate(0px, -170px) scale(1.1)` // bring to center
-          : `translate(${x}px, ${y}px) rotate(${angle}rad)`,
-      }}
+      className={`absolute origin-bottom z-50 cursor-pointer`}
+      initial={{ x: 0, y: 0, rotate: 0, opacity: 0 }}
+      animate={
+        selected
+          ? { x: 0, y: -170, scale: 1.1, opacity: 1 }
+          : { x, y, rotate: (angle * 180) / Math.PI, opacity: 1 }
+      }
+      transition={{ duration: 1, ease: "easeOut" }}
+      style={{ perspective: "1000px" }}
     >
       <div
-        className={`relative w-80 h-[500px] transition-transform duration-700 preserve-3d ${
+        className={`relative w-80 h-[500px] preserve-3d duration-700 ${
           selected ? "rotate-y-180" : ""
         }`}
         style={{ transformStyle: "preserve-3d" }}
@@ -116,16 +128,13 @@ const Card = ({
         <img
           src="https://i.pinimg.com/736x/79/55/a2/7955a2a683271884cf297e3da1b6bb78.jpg"
           alt={t}
-          className="w-80 h-full rounded-lg brightness-50 hover:brightness-100 duration-300  absolute top-0 left-0"
+          className="w-80 h-full rounded-lg brightness-50 hover:brightness-100 duration-300 absolute top-0 left-0 backface-hidden"
         />
         {/* Back */}
-        <div
-          // href={`/chapter/${i + 1}`}
-          className="w-80 h-full rounded-lg  duration-300  absolute top-0 left-0 rotate-y-180 backface-hidden"
-        >
+        <div className="w-80 h-full rounded-lg absolute top-0 left-0 rotate-y-180 backface-hidden">
           <img src={t} alt={t} className="w-80 h-full" />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
