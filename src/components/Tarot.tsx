@@ -23,23 +23,28 @@ export default function Tarot({
     >
       {/* controls only show if no card is selected */}
       {selectedCard === null && (
-        <div className="grid grid-cols-2 w-full h-full px-20 mb-10 absolute z-30 top-0 text-white">
+        <div className="grid grid-cols-2 w-full h-full px-20 absolute z-30 top-0 text-white">
           <button
             className="prev"
-            disabled={rotate == -30}
+            disabled={rotate == -40}
             onClick={() => setRotate(rotate - 10)}
           />
           <button
             className="next"
-            disabled={rotate == 40}
+            disabled={rotate == 50}
             onClick={() => setRotate(rotate + 10)}
           />
         </div>
       )}
 
-      <div className="w-full flex-1 flex items-center justify-center mt-[50vh] relative">
-        {CARDS.map((t, i) => {
+      <div
+        className={`w-full flex-1 flex items-center justify-center relative ${
+          selectedCard ? "mt-[45vh]" : "mt-[60vh]"
+        }`}
+      >
+        {CARDS.map((t, idx) => {
           // hide all except selected
+          const i = idx + 1;
           if (selectedCard !== null && selectedCard !== i) return null;
 
           return (
@@ -55,11 +60,11 @@ export default function Tarot({
               <div
                 key={i + "buttons"}
                 className={`absolute bottom-10 left-0 w-full flex items-center justify-center gap-2 text-white z-20 duration-1000 delay-500 ${
-                  selectedCard !== i ? "opacity-0" : "opacity-100"
+                  selectedCard === i ? "opacity-100" : "opacity-0"
                 }`}
               >
                 <Link
-                  href={`/chapter/${i + 1}`}
+                  href={`/chapter/${i}`}
                   className="w-24 py-1 rounded-full uppercase text-xs font-semibold flex justify-center items-center gap-1 border-2 border-white  hover:bg-white hover:text-black duration-300"
                 >
                   check

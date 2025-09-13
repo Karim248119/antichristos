@@ -18,8 +18,13 @@ export default function Home() {
           ref={constraintsRef}
           className="w-full h-screen absolute z-10 top-0 left-0 flex flex-col justify-center items-center overflow-hidden"
         >
+          <img
+            src="/a.png"
+            alt=""
+            className=" h-full absolute -top-10 left-1/2 -translate-x-1/2  opacity-20"
+          />
           <motion.h1
-            className={`text-3xl tracking-widest text-white flex flex-wrap justify-center text-center ${
+            className={`text-3xl tracking-widest text-white flex flex-wrap justify-center text-center absolute left-1/2 -translate-x-1/2 top-52 ${
               mainFont.className
             } ${selectedCard !== null ? "opacity-0" : "0.8"}`}
             dir="rtl"
@@ -41,7 +46,7 @@ export default function Home() {
                   hidden: { opacity: 0, y: 5 },
                   visible: { opacity: 0.8, y: 0 },
                 }}
-                transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
+                transition={{ duration: 1, delay: 0.3 * i, ease: "easeInOut" }}
               >
                 {word}
               </motion.span>
